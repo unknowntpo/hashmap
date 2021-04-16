@@ -55,7 +55,7 @@ func (m *Map) Add(key, value int) {
 }
 
 func (m *Map) Get(key int) (value int, ok bool) {
-	set := key % (2 << m.bit)
+	set := key % (1 << m.bit)
 	// access m.ht[set]
 	// if m.ht[set] not exist, means key not exist in map
 	if len(m.ht) < set {
