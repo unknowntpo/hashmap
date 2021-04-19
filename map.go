@@ -18,6 +18,13 @@ type htNode struct {
 	next       *htNode
 }
 
+func abs(num int) int {
+	if num < 0 {
+		return -num
+	}
+	return num
+}
+
 // Size returns the size of hash table.
 func (m *Map) Size() int { return 1 << m.bit }
 
@@ -42,20 +49,13 @@ func (h *htHead) appendHtNode(key, value int) {
 }
 
 func (m *Map) Add(key, value int) {
-	set := key % (2 << m.bit)
-	// access m.ht[set]
-	// if m.ht[set] not exist, append m.ht[]
-	/*
-		for len(m.ht) < set {
-			m.ht = append(m.ht, htHead{first: nil})
-		}
-	*/
-	// then append htNode
+	set := abs(key) % (1 << m.bit)
+
 	m.ht[set].appendHtNode(key, value)
 }
 
 func (m *Map) Get(key int) (value int, ok bool) {
-	set := key % (1 << m.bit)
+	set := abs(key) % (1 << m.bit)
 	// access m.ht[set]
 	// if m.ht[set] not exist, means key not exist in map
 	if len(m.ht) < set {

@@ -1,14 +1,14 @@
 package hashmap
 
 import (
-	"fmt"
+	"testing"
 )
 
-func Example() {
+func TestNegativeKey(t *testing.T) {
 	m := &Map{}
 	bit := 10
 	m.Init(bit)
-	nums := []int{2, 7, 11, 15}
+	nums := []int{-2, -7, 11, 15}
 
 	// add element of nums as key, and the index of element in nums as value
 	for i, v := range nums {
@@ -16,21 +16,12 @@ func Example() {
 	}
 
 	for i, _ := range nums {
-		v, ok := m.Get(nums[i]) // Output: 0, true
-		if ok {
-			fmt.Printf("nums[%d]: %d\n", i, v)
-		} else {
-			fmt.Printf("nums[%d] doesn't exist!", i)
+		_, ok := m.Get(nums[i])
+		if !ok {
+			t.Errorf("nums[%d] doesn't exist!", i)
 		}
 	}
-
-	// Output:
-	// nums[0]: 0
-	// nums[1]: 1
-	// nums[2]: 2
-	// nums[3]: 3
 }
-
 func ExampleString() {
 	m := &Map{}
 	bit := 10
