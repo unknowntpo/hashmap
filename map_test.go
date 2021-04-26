@@ -16,10 +16,25 @@ func TestNegativeKey(t *testing.T) {
 	}
 
 	for i, _ := range nums {
-		_, ok := m.Get(nums[i])
-		if !ok {
+		if _, ok := m.Get(nums[i]); !ok {
 			t.Errorf("nums[%d] doesn't exist!", i)
 		}
+	}
+}
+
+func TestNotFound(t *testing.T) {
+	m := &Map{}
+	bit := 10
+	m.Init(bit)
+	nums := []int{-2, -7, 11, 15}
+
+	// add element of nums as key, and the index of element in nums as value
+	for i, v := range nums {
+		m.Add(v, i)
+	}
+
+	if _, ok := m.Get(0); ok {
+		t.Errorf("Found key 0, but it should not be found.")
 	}
 }
 func ExampleString() {
